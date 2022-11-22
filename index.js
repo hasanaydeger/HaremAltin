@@ -1,40 +1,24 @@
-
-
-
-
-
-  let eskiDeger ="-";
-
+const puppeteer = require('puppeteer');
+let eskiDeger ="-";
 let calis=0;
-  async function getPrices(){
 
+async function getPrices(){
     aksiyon();
     console.log("burda degere bakıyorzu"+eskiDeger)
-   return await eskiDeger;
-
+    return await eskiDeger;
 }
 
 async function aksiyon() {
     if (calis==0){
-        calis=1;
-
-//async function getPrices (){
+    calis=1;
+       //async function getPrices (){
     const puppeteer = require('puppeteer');
     const browser = await puppeteer.launch({
-        headless: false // setting this to true will not run the UI
+        headless: false // setting this to true will not run the UI        
     });
+
     console.log("async çalıştı")
-
-
-
-
     const page= await browser.newPage();
-
-
-
-
-
-
     //await page.goto('https://www.haremaltin.com/', {timeout: 0});
     await page.setDefaultNavigationTimeout(0);
     let status = await page.goto('https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js/', {
@@ -42,9 +26,6 @@ async function aksiyon() {
         // Remove the timeout
         timeout: 0
     });
-
-
-
     status = status.status();
     if (status != 404) {
         console.log(`Probably HTTP response status code 200 OK.` + status);
@@ -59,17 +40,34 @@ async function aksiyon() {
 
     const sec='body > section.currency-gold.container > div > div.col-lg-8 > div';
     let element = await page.$(sec);
-    const innerTextSelector = '#satis__genel__ALTIN';
+    const hasSatis = '#satis__genel__ALTIN';
+    const onsSatis='#satis__genel__ONS';
+    const usdAlis='#alis__genel__USDTRY';
+    const euroAlis='#alis__genel__EURTRY';
+    const gumusSatis='#satis__genel__GUMUSTRY';
+
     await page.waitForSelector(sec);
-  console.log("for başı")
+    console.log("for başı")
   //let json = await element.$eval(innerTextSelector,(elem)=> elem.textContent);
   //eskiDeger=json;
     
   let aaa=0;
   
   for(let i =0;i< 30 ;i=0){
-    let json = await element.$eval(innerTextSelector,(elem)=> elem.textContent);
-    eskiDeger=json+" "+aaa;
+    let hasSatis_catch = await element.$eval(hasSatis,(elem)=> elem.textContent);
+    let onsSatis_catch = await element.$eval(onsSatis,(elem)=> elem.textContent);
+    let  usdAlis_catch = await element.$eval(usdAlis ,(elem)=> elem.textContent);
+    let euroAlis_catch = await element.$eval(euroAlis,(elem)=> elem.textContent);
+    let gumusSatis_catch = await element.$eval(gumusSatis,(elem)=> elem.textContent);
+
+    eskiDeger=` {
+                    "haremAltin":{ "hasSatis":${sayiyaCevir(hasSatis_catch)},
+                                   "onsSatis":${sayiyaCevir(onsSatis_catch)},
+                                   "usdAlis":${sayiyaCevir(usdAlis_catch)},
+                                   "euroAlis":${sayiyaCevir(euroAlis_catch)},
+                                   "gumusSatis":${sayiyaCevir(gumusSatis_catch)}
+                                   }
+                }`;
     aaa++;
      //consolabas(aaa);
      

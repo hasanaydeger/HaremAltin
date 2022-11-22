@@ -17,19 +17,27 @@ let rate=10002
 
  setInterval(async () => {
   
-      $.ajax({
-    url,
-    method:'GET',
-    success: function(data){
-        console.log(data)
-        document.getElementById('price').innerHTML=data;
-    },
-    erro:function(err){
-        console.log('Error:',err)
-    }
-})
+                        $.ajax({
+                                    url,
+                                    method:'GET',
+                                    success: function(data){
+                                        console.log(data)
+                                        let veri=JSON.parse( data);
+                                        let html_txt=` <p> Has Satiş Fiyatı : ${veri.haremAltin.hasSatis}</p>
+                                                       <p> Ons Satiş Fiyatı : ${veri.haremAltin.onsSatis}</p>
+                                                       <p> Usd Aliş  Fiyatı : ${veri.haremAltin.usdAlis}</p>
+                                                       <p> Euro Satiş Fiyatı : ${veri.haremAltin.euroAlis}</p>
+                                                       <p> Gümüş Satiş Fiyatı : ${veri.haremAltin.gumusSatis}</p>
+                                                        `
+                                        document.getElementById('price').innerHTML=html_txt;
+                                    },
+                                    erro:function(err){
+                                        console.log('Error:',err)
+                                    }
+                                 })
 
-}, 100);
+                         }, 100
+            );
 
 
 

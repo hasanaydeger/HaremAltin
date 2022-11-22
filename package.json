@@ -2,8 +2,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "postman-collection-transformer": "^4.1.6",
-    "puppeteer": "^19.2.2"
+    "node": "^19.1.0",
+    "postman-collection-transformer": "^4.1.6"
   },
   "name": "pupp",
   "version": "1.0.0",
@@ -14,5 +14,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "puppeteer": "^19.2.2"
+  }
 }
